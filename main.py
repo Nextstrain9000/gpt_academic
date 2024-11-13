@@ -1,17 +1,8 @@
 import os, json; os.environ['no_proxy'] = '*' # 避免代理网络产生意外污染
 
 help_menu_description = \
-"""Github源代码开源和更新[地址🚀](https://github.com/binary-husky/gpt_academic),
-感谢热情的[开发者们❤️](https://github.com/binary-husky/gpt_academic/graphs/contributors).
-</br></br>常见问题请查阅[项目Wiki](https://github.com/binary-husky/gpt_academic/wiki),
-如遇到Bug请前往[Bug反馈](https://github.com/binary-husky/gpt_academic/issues).
-</br></br>普通对话使用说明: 1. 输入问题; 2. 点击提交
-</br></br>基础功能区使用说明: 1. 输入文本; 2. 点击任意基础功能区按钮
-</br></br>函数插件区使用说明: 1. 输入路径/问题, 或者上传文件; 2. 点击任意函数插件区按钮
-</br></br>虚空终端使用说明: 点击虚空终端, 然后根据提示输入指令, 再次点击虚空终端
-</br></br>如何保存对话: 点击保存当前的对话按钮
-</br></br>如何语音对话: 请阅读Wiki
-</br></br>如何临时更换API_KEY: 在输入区输入临时API_KEY后提交（网页刷新后失效）"""
+"""OP API 服务列表 https://api.op414.com。公益GPT Academic服务器 https://chat.op414.com， 测试服 https://chatdev.op414.com。项目源码(https://github.com/binary-husky/gpt_academic)。
+"""
 
 from loguru import logger
 def enable_log(PATH_LOGGING):
@@ -57,10 +48,32 @@ def main():
     # 如果WEB_PORT是-1, 则随机选取WEB端口
     PORT = find_free_port() if WEB_PORT <= 0 else WEB_PORT
     from check_proxy import get_current_version
-    from themes.theme import adjust_theme, advanced_css, theme_declaration, js_code_clear, js_code_reset, js_code_show_or_hide, js_code_show_or_hide_group2
-    from themes.theme import js_code_for_toggle_darkmode, js_code_for_persistent_cookie_init
-    from themes.theme import load_dynamic_theme, to_cookie_str, from_cookie_str, assign_user_uuid
-    title_html = f"<h1 align=\"center\">GPT 学术优化 {get_current_version()}</h1>{theme_declaration}"
+    from themes.theme import (
+        adjust_theme, advanced_css, theme_declaration, js_code_clear,
+        js_code_reset, js_code_show_or_hide, js_code_show_or_hide_group2,
+        js_code_for_toggle_darkmode, js_code_for_persistent_cookie_init,
+        load_dynamic_theme, to_cookie_str, from_cookie_str, assign_user_uuid
+    )
+    
+    # 定义小字内容，使用HTML格式的超链接和分栏布局
+    small_text_html = """
+    <div style="font-size: 12px; text-align: left; column-count: 2; column-gap: 40px; margin-top: 20px;">
+        <ol style="list-style: decimal inside;">
+            <li>OP 公益服务列表详见 <a href="https://api.op414.com/" target="_blank" rel="noopener noreferrer">https://api.op414.com/</a>，本站为主服，限制文件上传大小10mb，OpenAI与Claude系列模型日常对话不支持高并发，高并发任务请前往测试服 <a href="https://chatdev.op414.com" target="_blank" rel="noopener noreferrer">https://chatdev.op414.com</a></li>
+            <li>仅供个人学术研究使用，请自觉遵守《生成式人工智能服务管理暂行办法》</li>
+            <li>左上角切换模型和主题，右下角切换插件下载文件，请注意数据隐私保护，不要上传涉密和重要的个人数据</li>
+            <li>Bug或无法连接请加群反馈 <a href="https://t.me/+HCrnkGX_OFQzMjkx" target="_blank" rel="noopener noreferrer">https://t.me/+HCrnkGX_OFQzMjkx</a>；需提交明确的操作步骤和报错信息截图</li>
+            <li>赞助支持网站的运行维护 爱发电 <a href="https://afdian.com/a/opapi" target="_blank" rel="noopener noreferrer">https://afdian.com/a/opapi</a> USDT-TRC20 Wallet TBJMYPXC7kDqEJ5M8b7ubLCpdzwb5YNunL </li>
+        </ol>
+    </div>
+    """
+
+    # 定义标题HTML，包含标题和小字内容
+    title_html = f"""
+    <h1 style="text-align: center;">OP GPT Academic 公益服务器 {get_current_version()}</h1>
+    {theme_declaration}
+    {small_text_html}
+    """
 
 
     # 一些普通功能模块
